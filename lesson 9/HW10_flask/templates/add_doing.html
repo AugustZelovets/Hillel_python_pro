@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+ <h2>Add doing</h2>
+<form action="" method="post" novalidate>
+    {{ context.form.hidden_tag() }}
+    <p>
+        {{ context.form.title.label}} <br>
+        {{ context.form.title(size=32)}}
+    </p>
+        <p>
+        {{ context.form.details.label}} <br>
+        {{ context.form.details(size=32)}}
+    </p>
+        <p>
+        {{ context.form.category.label}} <br>
+        {{ context.form.category()}}
+    </p>
+        <p>
+        {{ context.form.date.label}} <br>
+        {{ context.form.date(size=32)}}
+    </p>
+
+    <p>{{ context.form.enter() }} </p>
+    <br>
+    <h4>Random activity: {{context.activity}}</h4>
+    <h5>Category: {{context.activity_category}}</h5>
+</form>
+
+{% endblock %}

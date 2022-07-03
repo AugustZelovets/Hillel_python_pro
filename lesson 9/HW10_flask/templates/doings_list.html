@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+ <h2>{{ headline }}</h2>
+{% if doings_list%}
+ {% for doing in doings_list %}
+ <h4>{{doing.title}}</h4>
+ <h5>{{ doing.details }}</h5>
+ <h5>Category: {{ doing.category_name }}</h5>
+ <h5>{{ doing.date }}</h5>
+
+ <br>
+{% endfor %}
+{%else%}
+<br>
+<h2>No doings</h2>
+{%endif%}
+{% endblock %}

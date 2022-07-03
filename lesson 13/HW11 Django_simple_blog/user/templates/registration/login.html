@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+{% block content %}
+<main class="container">
+    <h1>Login</h1>
+    <hr>
+    {% if form.errors %}
+        <p>{{ form.errors.error }}</p>
+    {% endif %}
+
+
+    <form class="n_class" action="{% url 'user:login' %}" method="post">
+
+    {{ form.as_p }}
+    {% csrf_token %}
+    <a href="{% url 'user:password_reset' %}">Forgot password?</a><hr>
+    <button type="submit" class="my_btn">submit</button>
+    </form>
+
+
+</main>
+{% endblock %}
