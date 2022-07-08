@@ -44,7 +44,7 @@
 
 <!--CONTENT-->
 
-{% for post in all_posts %}
+{% for post in posts %}
     {% if forloop.first %}
     <h1>All {{forloop.revcounter0}} posts</h1>
     {% endif %}
@@ -59,9 +59,9 @@
         </span></p>
 
         <p>{{ post.text|truncatewords:50 }}</p>
-
     </article>
-{% endfor %}
+
+    {% endfor %}
 
 
 </main>

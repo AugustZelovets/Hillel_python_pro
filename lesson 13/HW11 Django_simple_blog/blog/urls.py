@@ -6,12 +6,12 @@ from .views import *
 app_name = 'blog'
 
 urlpatterns = [
-    path('', get_all_posts, name='get_all_posts'),
-    path('category/<slug:category_slug>/', get_posts_by_category, name='get_posts_by_category'),
-    path('post/<slug:post_slug>/', get_one_post, name='get_one_post'),
-    path('add_post/', add_post, name='add_post'),
-    path('add_category/', add_category, name='add_category'),
-    path('user_posts/<str:user>/', get_user_posts, name = 'user_posts'),
-
+    path('', GetAllPostsView.as_view(), name='get_all_posts'),
+    path('category/<slug:category_slug>/', GetPostsByCategoryView.as_view(), name='get_posts_by_category'),
+    path('post/<slug:slug>/', GetPostDetailsView.as_view(), name='get_one_post'),
+    path('add_post/', AddPostView.as_view(), name='add_post'),
+    path('add_category/', AddCategoryView.as_view(), name='add_category'),
+    path('user_posts/<str:username>/', GetPostsByAuthor.as_view(), name='user_posts'),
+    path('post_update/<slug>/', PostUpdateView.as_view(), name='post_update'),
 
 ]

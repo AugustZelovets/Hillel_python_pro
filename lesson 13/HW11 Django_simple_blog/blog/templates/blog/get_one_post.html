@@ -52,8 +52,11 @@
             <a href="{{ category.get_absolute_url }}">{{ category }}</a>
             {% endfor %}
         </span></p>
-
         <p>{{ post.text }}</p>
+
+        {% if   request.user  ==  post.author  %}
+        <a href="{% url 'blog:post_update' slug=post.slug%}">Edit</a>
+        {% endif %}
 
     </article>
 

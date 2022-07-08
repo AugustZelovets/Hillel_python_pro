@@ -1,9 +1,10 @@
-
 from django.db import models
 from django.db.models.functions import Lower
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.conf import settings
+
+from blog.utils import generate_slug
 
 User = settings.AUTH_USER_MODEL
 
@@ -19,17 +20,10 @@ class Category(models.Model):
         return reverse('blog:get_posts_by_category', kwargs={'category_slug': self.slug})
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        """slug generation from category name and <_number> if such slug already exists"""
+
         if not self.slug:
-            slugs = [category.slug for category in Category.objects.all()]
-            index_ = 0
-            new_slug = slugify(self.name)
-            if new_slug in slugs:
-                while new_slug + '_' + str(index_) in slugs:
-                    index_ += 1
-                new_slug += '_' + str(index_)
-            self.slug = new_slug
-        super().save(force_insert, force_update, using, update_fields)
+            self.slug = generate_slug(self, Category, self.name)
+        super().save(force_insert=False, force_update=False, using=None, update_fields=None)
 
     class Meta:
         ordering = [Lower('name')]
@@ -48,20 +42,13 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('blog:get_one_post', kwargs={'post_slug': self.slug})
+        return reverse('blog:get_one_post', kwargs={'slug': self.slug})
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        """slug generation from post title and <_number> if such slug already exists"""
+
         if not self.slug:
-            slugs = [post.slug for post in Post.objects.all()]
-            index_ = 0
-            new_slug = slugify(self.title)
-            if new_slug in slugs:
-                while new_slug + '_' + str(index_) in slugs:
-                    index_ += 1
-                new_slug += '_' + str(index_)
-            self.slug = new_slug
-        super().save(force_insert, force_update, using, update_fields)
+            self.slug = generate_slug(self, Post, self.title)
+        super().save(force_insert=False, force_update=False, using=None, update_fields=None)
 
     class Meta:
         ordering = ['-pk']
