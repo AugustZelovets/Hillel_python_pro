@@ -100,15 +100,12 @@ class PostUpdateView(UpdateView):
 class GetAllPostsView(ListView):
     template_name = 'blog/get_all_posts.html'
     context_object_name = 'posts'
-
-    def get_queryset(self):
-        return Post.objects.all()
+    model = Post
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
         context['title'] = 'Blog homepage'
-        # print(self.kwargs['request'] )
         return context
 
 
@@ -145,9 +142,7 @@ class GetPostsByAuthor(ListView):
 class GetPostDetailsView(DetailView):
     template_name = 'blog/get_one_post.html'
     context_object_name = 'post'
-
-    def get_queryset(self):
-        return Post.objects.filter(slug=self.kwargs['slug'])
+    model = Post
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
