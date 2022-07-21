@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 django = "==3.2"
 requests = "*"
-
+psycopg2-binary = "*"
 [dev-packages]
 
 [requires]

@@ -1,0 +1,28 @@
+networks:
+  hillel-network:
+    driver: bridge
+    name: private_network
+
+services:
+  postgres:
+    container_name: psql
+    image: postgres:14
+    ports:
+      - 5432:5432
+    env_file:
+      - docker/conf/postgres.env
+    volumes:
+      - ./docker/volumes/init.d:/docker-entrypoint.initdb.d/
+    networks:
+      - hillel-network
+
+  blog:
+    container_name: simple_blog
+    image: kilimchara/simpleblog:1.0.6
+    ports:
+      - 8000:8000
+    networks:
+      - hillel-network
+    depends_on:
+      - postgres
+

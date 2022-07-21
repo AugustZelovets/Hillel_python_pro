@@ -1,6 +1,5 @@
 from django.db import models
 from django.db.models.functions import Lower
-from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.conf import settings
 
